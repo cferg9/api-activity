@@ -7,7 +7,7 @@ api = Api(app)
 class Hello(Resource):
 
     def get(self):
-        return jsonify({"message": "Hello World!"})
+        return jsonify({"message": "Hello World:"})
 api.add_resource(Hello, '/')
 
 class Square(Resource):
