@@ -1,8 +1,8 @@
-from urllib import response
-
+import base64
+import uuid
 import pytest
+
 from api_activity.app import create_app
-from app import app
 
 @pytest.fixture
 def client():
@@ -36,10 +36,27 @@ def test_profile_with_valid_auth(client):
     '/profile',
     auth=("testuser", "testpass123")
     )
-assert response.status_code == 200
-assert "testuser" in response.json["message"]   
+    assert response.status_code == 200
+    assert "testuser" in response.json["message"]   
+
+def test_activity_without_auth(client):
+    response = client.get('/activity')
+    assert response.status_code == 401
 
 
+def test_activity_with_valid_auth(client):
+    client.put(
+        '/register',
+        json={"username": "activityuser", "password": "testpass123"}
+    )
+
+    response = client.get(
+        '/activity',
+        auth=("activityuser", "testpass123")
+    )
+
+    assert response.status_code == 200
+    
 def test_echo(client):
     response = client.get('/echo?arg1=hello&arg2=world')
 
