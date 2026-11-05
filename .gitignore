@@ -8,3 +8,14 @@ wheels/
 
 # Virtual environments
 .venv
+
+MyKey.pem
+
+# Database
+activity.db
+
+# macOS
+.DS_Store
+
+# Configuration
+config.py
